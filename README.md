@@ -1,6 +1,8 @@
 # ImageSearchAndroid
 Android application for searching image with daum API.
 
+GitHub URL : https://github.com/meuus90/ImageSearchAndroid
+
   * Product APK 둘러보기
     * [APK 링크 Github](ImageSearch-prodRelease-1.0.0.apk)
     
@@ -94,19 +96,7 @@ Android application for searching image with daum API.
     * AndroidX Paging 3 라이브러리를 사용하였다.
   
     * Paging 처리 방식은 'Network Storage -> Local Storage -> Repository -> Adapter'로 구성하였다.
-        
-    [AppConfig](app/src/main/java/com/meuus90/imagesearch/base/constant/AppConfig.kt)
-    ```
-    const val localPagingSize = 30          // Room에서 페이지당 불러오는 아이템 개수
-    const val localInitialLoadSize = 50     // PagingData를 초기화할 때 Room에서 불러오는 초기 아이템 개수
-    const val localPrefetchDistance = 30    // PagingDataAdapter에서 스크롤 시 
-                                            // 아이템을 미리 불러오기 위해 메모리상 남은 개수
 
-    const val remotePagingSize = 50         // Network에 요청할 페이지 당 아이템 개수 
-                                            // (PagingConfig에 적용하지 않고 ImagesPageKeyedMediator로 넘긴다.
-                                            // ImagesPageKeyedMediator에서 API Request 파라미터로 전송한다.)
-    ```
-      
 
 ### 3. Dependency Injection
 
