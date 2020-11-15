@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="doc_sort">
+        <item>정렬 순서</item>
+        <item>정확도순</item>
+        <item>최신순</item>
+    </string-array>
+</resources>

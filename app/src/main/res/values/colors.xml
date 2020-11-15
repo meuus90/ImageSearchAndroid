@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#fff176</color>
+    <color name="colorPrimaryLight">#ffffa8</color>
+    <color name="colorPrimaryDark">#cabf45</color>
+    <color name="colorAccent">#f57f17</color>
+
+    <color name="colorPrimaryDeep">#ffeb3b</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGrey">#333333</color>
+    <color name="colorTransparent">#00000000</color>
+
+    <color name="colorText">#000000</color>
+    <color name="colorTextAccent">#2196f3</color>
+    <color name="colorTextGrey">#959595</color>
+
+    <color name="colorEditTextBg">#f6f6f6</color>
+    <color name="colorLine">#d7d7d7</color>
+
+    <color name="colorDim">#09000000</color>
+
+    <color name="colorImageOutLine">#77d7d7d7</color>
+
+    <color name="placeHolderColor0">#ffccbc</color>
+    <color name="placeHolderColor1">#ffe0b2</color>
+    <color name="placeHolderColor2">#fff9c4</color>
+    <color name="placeHolderColor3">#dcedc8</color>
+    <color name="placeHolderColor4">#b2ebf2</color>
+    <color name="placeHolderColor5">#d1c4e9</color>
+</resources>

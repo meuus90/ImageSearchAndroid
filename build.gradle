@@ -1,0 +1,149 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        kotlin_version = '1.4.10'
+        ktlint_version = '8.2.0'
+        coroutines_version = '1.3.8'
+
+        junit_version = '4.13'
+        junit_jupiter_version = '5.7.0'
+        junit_vintage_version = '5.7.0'
+        junit_platform_version = '4.13'
+        mannodermaus_junit5_version = '1.2.0'
+
+        androidx_test_version = '1.3.0'
+        androidx_junit_version = '1.1.2'
+        androidx_espresso_version = '3.3.0'
+
+        androidx_annotation_version = '1.1.0'
+        androidx_cardview_version = '1.0.0'
+        androidx_browser_version = '1.2.0'
+        androidx_core_ktx_version = '1.3.1'
+        androidx_appcompat_version = '1.2.0'
+        androidx_multidex_version = '2.0.1'
+        androidx_constraint_layout_version = '2.0.1'
+
+        arch_lifecycle_version = '2.2.0'
+        arch_room_version = '2.3.0-alpha02'
+        arch_workmanager_version = '2.4.0'
+        arch_paging_version = '3.0.0-alpha06'
+        arch_core_testing_version = '2.1.0'
+
+        dagger_version = '2.29.1'
+
+        design_support_version = '1.3.0-alpha02'
+        retrofit2_version = "2.9.0"
+        okhttp3_version = '4.9.0'
+
+        glide_version = "4.11.0"
+
+        timber_version = '4.7.1'
+        logger_version = '2.2.0'
+    }
+
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local' }
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.0.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlint_version"
+        classpath 'com.android.tools.build.jetifier:jetifier-processor:1.0.0-beta10'
+        classpath 'io.fabric.tools:gradle:1.31.2'
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.6.0.0"
+    }
+}
+
+plugins {
+    id "com.diffplug.gradle.spotless" version "4.0.1"
+    id "org.jlleitschuh.gradle.ktlint" version "$ktlint_version"
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.google.com' }
+        flatDir { dirs '../../' }
+        maven { url 'https://jitpack.io' }
+        maven {
+            name 'glide-snapshot'
+            url 'http://oss.sonatype.org/content/repositories/snapshots'
+        }
+    }
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xmaxerrs" << "1000"
+        }
+    }
+}
+
+spotless {
+    ktlint {
+        debug.set(true)
+    }
+}
+
+spotless {
+    java {
+        target '**/*.java'
+        googleJavaFormat().aosp()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+
+    kotlin {
+        target "**/*.kt"
+        ktlint(ktlint_version)
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+
+    format 'misc', {
+        target '**/*.gradle', '**/*.md', '**/.gitignore'
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+
+    format 'xml', {
+        target '**/*.xml'
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == "com.android.support") {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion "26.+"
+            }
+        }
+
+        if (requested.group == "androidx.appcompat") {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion "1.+"
+            }
+        }
+    }
+
+    exclude group: 'com.google.protobuf', module: 'protobuf-lite'
+    exclude group: 'com.google.protobuf', module: 'protobuf-java'
+
+    exclude group: "com.android.support", module: "support-core-ui"
+    exclude group: "com.android.support", module: "support-compat"
+}
