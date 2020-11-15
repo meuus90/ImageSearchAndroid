@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.annotation.GlideModule
 import com.meuus90.imagesearch.R
-import com.meuus90.imagesearch.base.view.util.DetailsTransition
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
@@ -143,36 +142,6 @@ abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector {
                     addSharedElement(sharedView, sharedView.transitionName)
                 replace(frameLayoutId, fragment, fragment.javaClass.name)
             }.commit()
-    }
-
-    internal fun goToRootFragment() {
-        val count = supportFragmentManager.backStackEntryCount
-        if (count >= 2) {
-            val be = supportFragmentManager.getBackStackEntryAt(0)
-            supportFragmentManager.popBackStack(be.id, 0)
-        }
-    }
-
-    private fun setTransition(fragment: Fragment, sharedView: View?) {
-        sharedView?.let {
-            fragment.sharedElementEnterTransition = DetailsTransition()
-            fragment.enterTransition = null
-            getCurrentFragment()?.exitTransition = null
-            fragment.sharedElementReturnTransition = DetailsTransition()
-        }
-    }
-
-    private fun transact(fragment: Fragment, frameId: Int, sharedView: View? = null) {
-        supportFragmentManager.beginTransaction().apply {
-            if (sharedView != null)
-                addSharedElement(sharedView, sharedView.transitionName)
-            else {
-                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            }
-
-            addToBackStack(fragment::class.java.name)
-            replace(frameId, fragment, fragment::class.java.name)
-        }.commit()
     }
 
     protected fun getCurrentFragment(): BaseFragment? {

@@ -1,11 +1,9 @@
 package com.meuus90.imagesearch
 
-import android.app.Activity
 import android.app.Application
 import android.content.ComponentCallbacks2
 import android.content.Context
 import android.content.res.Configuration
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.multidex.MultiDex
@@ -17,7 +15,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.system.exitProcess
 
 
 class ImageSearch : Application(), LifecycleObserver, HasAndroidInjector {
@@ -25,19 +22,6 @@ class ImageSearch : Application(), LifecycleObserver, HasAndroidInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     internal var isInForeground = false
-
-    companion object {
-        fun exitApplication(activity: Activity) {
-            ActivityCompat.finishAffinity(activity)
-            exit()
-        }
-
-        private fun exit() {
-            android.os.Process.killProcess(android.os.Process.myPid())
-            System.runFinalizersOnExit(true)
-            exitProcess(0)
-        }
-    }
 
     override fun onCreate() {
         super.onCreate()
